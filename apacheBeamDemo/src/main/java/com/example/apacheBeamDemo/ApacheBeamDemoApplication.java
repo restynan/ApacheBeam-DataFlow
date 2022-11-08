@@ -3,13 +3,13 @@ package com.example.apacheBeamDemo;
 import com.example.apacheBeamDemo.model.Customer;
 import com.example.apacheBeamDemo.service.CustomerFilterParDo;
 import com.example.apacheBeamDemo.service.CustomerService;
+import com.example.apacheBeamDemo.service.FilterTransformExample;
 import com.example.apacheBeamDemo.service.UserSimpleFunction;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.transforms.Create;
-import org.apache.beam.sdk.transforms.MapElements;
-import org.apache.beam.sdk.transforms.ParDo;
+import org.apache.beam.sdk.transforms.*;
 import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.PCollectionList;
 import org.apache.beam.sdk.values.TypeDescriptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -69,7 +69,7 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 				.withNumShards(1)
 				.withSuffix(".csv"));
 		pipelineFileUser.run();
-*/
+
 		//pardo  Ptransform to get customers that only belong to los angeles
 		Pipeline pipelineFileParDo = Pipeline.create();
 		PCollection<String> pCollectionListParDo = pipelineFileParDo.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_pardo.csv"));
@@ -81,12 +81,33 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 				.withSuffix(".csv"));
 		pipelineFileParDo.run();
 
+		// how to achieve filtration with the help of Filter transform API
+		Pipeline pipelineFileFilterLosAngeLes = Pipeline.create();
+		PCollection<String> pCollectionListFilterLosAngeLes = pipelineFileFilterLosAngeLes.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_pardo.csv"));
+
+		PCollection<String> pCollectionFilterLosAngeLes=  pCollectionListFilterLosAngeLes.apply(Filter.by(new FilterTransformExample()));
+		pCollectionFilterLosAngeLes.apply(TextIO.write().to("/Users/restynasimbwa/apacheBeam/output_data/user_output.csv")
+				.withHeader("ID,Name,Last Name,City")
+				.withNumShards(1)
+				.withSuffix(".csv"));
+		pipelineFileFilterLosAngeLes.run();
+
+*/
 
 
 
-
-
-		System.out.println("Done");
+		//Flatten combine multiple pcollection into a single pcollection
+		Pipeline pipelineFileFlatten = Pipeline.create();
+		PCollection<String> pCollectionList1 = pipelineFileFlatten.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_1.csv"));
+		PCollection<String> pCollectionList2 = pipelineFileFlatten.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_2.csv"));
+		PCollection<String> pCollectionList3 = pipelineFileFlatten.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_3.csv"));
+		PCollectionList<String> pList = PCollectionList.of(pCollectionList1).and(pCollectionList2).and(pCollectionList3);
+		PCollection<String> merged = pList.apply(Flatten.pCollections());
+		merged.apply(TextIO.write().to("/Users/restynasimbwa/apacheBeam/output_data/merged_output.csv")
+				.withHeader("ID,Name,Last Name,City")
+				.withNumShards(1)
+				.withSuffix(".csv"));
+		pipelineFileFlatten.run();
 
 	}
 }
