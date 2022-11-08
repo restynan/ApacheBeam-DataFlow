@@ -1,17 +1,15 @@
 package com.example.apacheBeamDemo;
 
 import com.example.apacheBeamDemo.model.Customer;
+import com.example.apacheBeamDemo.service.CustomerFilterParDo;
 import com.example.apacheBeamDemo.service.CustomerService;
-import com.example.apacheBeamDemo.service.MyOptions;
-import com.example.apacheBeamDemo.service.User;
+import com.example.apacheBeamDemo.service.UserSimpleFunction;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.options.PipelineOptions;
-import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.Create;
 import org.apache.beam.sdk.transforms.MapElements;
+import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.values.TypeDescriptor;
 import org.apache.beam.sdk.values.TypeDescriptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,7 +38,7 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 									.withNumShards(1)
 									.withSuffix(options.getExtension()));
 		pipelineFile.run();
-*/
+
 		//Creating a PCollection from a Java Object
 
 		Pipeline customerPipeline = Pipeline.create();
@@ -62,16 +60,26 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 				.withSuffix(".csv"));
 		pipelineFile.run();
 
-		// Using simple Function
+		// Using simple Function=> map 1-M/male 2-F/female
 		Pipeline pipelineFileUser = Pipeline.create();
 		PCollection<String> pCollectionUserList = pipelineFileUser.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/user.csv"));
 
-		PCollection<String> pCollectionUserUppercase = pCollectionUserList.apply(MapElements.via(new User()));
+		PCollection<String> pCollectionUserUppercase = pCollectionUserList.apply(MapElements.via(new UserSimpleFunction()));
 		pCollectionUserUppercase.apply(TextIO.write().to("/Users/restynasimbwa/apacheBeam/data/user_output.csv")
 				.withNumShards(1)
 				.withSuffix(".csv"));
 		pipelineFileUser.run();
+*/
+		//pardo  Ptransform to get customers that only belong to los angeles
+		Pipeline pipelineFileParDo = Pipeline.create();
+		PCollection<String> pCollectionListParDo = pipelineFileParDo.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/customer_pardo.csv"));
 
+		PCollection<String> pCollectionLosAngeLes=  pCollectionListParDo.apply(ParDo.of(new CustomerFilterParDo()));
+		pCollectionLosAngeLes.apply(TextIO.write().to("/Users/restynasimbwa/apacheBeam/output_data/user_output.csv")
+						.withHeader("ID,Name,Last Name,City")
+				.withNumShards(1)
+				.withSuffix(".csv"));
+		pipelineFileParDo.run();
 
 
 

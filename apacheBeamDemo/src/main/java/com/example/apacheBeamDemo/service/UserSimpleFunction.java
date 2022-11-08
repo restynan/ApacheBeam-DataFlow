@@ -2,7 +2,7 @@ package com.example.apacheBeamDemo.service;
 
 import org.apache.beam.sdk.transforms.SimpleFunction;
 
-public class User extends SimpleFunction<String, String> {
+public class UserSimpleFunction extends SimpleFunction<String, String> {
     //create our custom logic for apply function
     @Override
     public String apply(String input){
