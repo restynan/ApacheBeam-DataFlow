@@ -1,13 +1,6 @@
 package com.example.apacheBeamDemo;
 
-import com.example.apacheBeamDemo.model.Customer;
 import com.example.apacheBeamDemo.service.*;
-import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.transforms.*;
-import org.apache.beam.sdk.values.PCollection;
-import org.apache.beam.sdk.values.PCollectionList;
-import org.apache.beam.sdk.values.TypeDescriptors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -105,7 +98,7 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 				.withNumShards(1)
 				.withSuffix(".csv"));
 		pipelineFileFlatten.run();
-*/
+
 		//Partion one PCollection  broken into multiple Objects
 		// All elements that contain Los Angeles should be mapped into another Pcollection and elements with Phoenix into another
 
@@ -128,7 +121,11 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 				.withSuffix(".csv"));
 
 		pipeline.run();
+*/
 
+		//Side inputs ===>Return List of customers who never returned the products
+		CustomersWhoDidNotReturnProducts custObj = new CustomersWhoDidNotReturnProducts();
+		custObj.customersWhoDidNotReturnProducts();
 	}
 
 
