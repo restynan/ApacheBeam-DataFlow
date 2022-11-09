@@ -1,4 +1,4 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.parDo;
 
 import org.apache.beam.sdk.transforms.DoFn;
 

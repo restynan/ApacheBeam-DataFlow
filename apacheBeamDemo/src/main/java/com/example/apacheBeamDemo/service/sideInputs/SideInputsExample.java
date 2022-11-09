@@ -1,5 +1,6 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.sideInputs;
 
+import com.example.apacheBeamDemo.service.sideInputs.CustWhoReturnedProductsProcessor;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
 import org.apache.beam.sdk.transforms.DoFn;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 import java.util.Map;
 
 
-public class CustomersWhoDidNotReturnProducts implements Serializable {
+public class SideInputsExample implements Serializable {
 
     public void customersWhoDidNotReturnProducts() {
         Pipeline pipeline = Pipeline.create();

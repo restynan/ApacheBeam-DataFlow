@@ -1,4 +1,4 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.sideInputs;
 
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.values.KV;

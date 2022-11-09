@@ -1,8 +1,8 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.filterTransform;
 
 import org.apache.beam.sdk.transforms.SerializableFunction;
 
-public class FilterTransformExample  implements SerializableFunction <String, Boolean>{
+public class FilterTransformProcessor implements SerializableFunction <String, Boolean>{
 
     @Override
     public Boolean apply(String input) {

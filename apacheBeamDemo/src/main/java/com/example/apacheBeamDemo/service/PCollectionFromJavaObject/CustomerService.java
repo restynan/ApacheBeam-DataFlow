@@ -1,4 +1,4 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.PCollectionFromJavaObject;
 
 import com.example.apacheBeamDemo.model.Customer;
 import org.springframework.stereotype.Service;
@@ -10,6 +10,7 @@ import java.util.List;
 public class CustomerService {
 
     public List<Customer> getCustomers(){
+        // return a list of customers
        Customer customer1 = Customer.builder().id(101).name("John").build();
        Customer customer2 = Customer.builder().id(102).name("Peter").build();
         Customer customer3 = Customer.builder().id(103).name("Kevin").build();

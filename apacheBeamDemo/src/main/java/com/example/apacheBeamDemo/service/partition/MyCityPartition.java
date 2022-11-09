@@ -1,4 +1,4 @@
-package com.example.apacheBeamDemo.service;
+package com.example.apacheBeamDemo.service.partition;
 
 import org.apache.beam.sdk.transforms.Partition;
 
