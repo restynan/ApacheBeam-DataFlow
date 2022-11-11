@@ -3,6 +3,7 @@ package com.example.apacheBeamDemo;
 import com.example.apacheBeamDemo.service.CountExample;
 import com.example.apacheBeamDemo.service.DistinctExample;
 import com.example.apacheBeamDemo.service.groupByKey.GroupByKeyExample;
+import com.example.apacheBeamDemo.service.innerJoin.InnerJoinExample;
 import com.example.apacheBeamDemo.service.usingOptions.MyOptions;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
@@ -80,10 +81,16 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 		// How to count PCollection
 		CountExample countExample = new CountExample();
 		countExample.getCount();
-		 */
+
 		// Group by key -> group values associated with a particular key
 		GroupByKeyExample groupByKeyExample = new GroupByKeyExample();
 		groupByKeyExample.getCustomersGroupedByKey();
+     */
+
+
+		InnerJoinExample innerJoinExample = new InnerJoinExample();
+		innerJoinExample.usingInnerJoin();
+
 
 
 	}
