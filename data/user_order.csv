@@ -1,0 +1,4 @@
+user_id,order_id,product_id,Amount
+1001,1,1,300
+1002,1,1,400
+1003,4,3,200

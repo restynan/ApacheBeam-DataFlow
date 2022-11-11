@@ -1,5 +1,8 @@
 package com.example.apacheBeamDemo;
 
+import com.example.apacheBeamDemo.service.CountExample;
+import com.example.apacheBeamDemo.service.DistinctExample;
+import com.example.apacheBeamDemo.service.groupByKey.GroupByKeyExample;
 import com.example.apacheBeamDemo.service.usingOptions.MyOptions;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
@@ -20,7 +23,7 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
+/*
 	//Creating a PCollection from a file system
 
 		Pipeline pipelineFile = Pipeline.create();
@@ -31,7 +34,7 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 		pipelineFile.run();
 
 
-/*
+
 		//Creating a PCollection from a Java Object
 		PCollectionJavaObjectExample pObject = new PCollectionJavaObjectExample();
 		pObject.pCollectionJavaObject();
@@ -68,7 +71,21 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 		SideInputsExample custObj = new SideInputsExample();
 		custObj.customersWhoDidNotReturnProducts();
 
- */
+		// Aggregation transformation
+		//use Distinct to return unique customers
+		DistinctExample distinctExample = new DistinctExample();
+		distinctExample.getDistinct();
+
+
+		// How to count PCollection
+		CountExample countExample = new CountExample();
+		countExample.getCount();
+		 */
+		// Group by key -> group values associated with a particular key
+		GroupByKeyExample groupByKeyExample = new GroupByKeyExample();
+		groupByKeyExample.getCustomersGroupedByKey();
+
+
 	}
 
 
