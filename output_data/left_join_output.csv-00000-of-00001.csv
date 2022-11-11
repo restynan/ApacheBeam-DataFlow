@@ -1,4 +1,6 @@
+1009,null,5,20,420
 user_id,name,order_id,product_id,Amount
+1003,Mary,4,3,200
 1002,Peter,1,1,400
 1001,John,1,1,300
-1003,Mary,4,3,200
+1007,null,2,15,250

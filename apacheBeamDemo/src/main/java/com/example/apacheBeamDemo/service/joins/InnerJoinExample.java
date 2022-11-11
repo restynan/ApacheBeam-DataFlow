@@ -1,8 +1,7 @@
-package com.example.apacheBeamDemo.service.innerJoin;
+package com.example.apacheBeamDemo.service.joins;
 
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.transforms.Count;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.ParDo;
 import org.apache.beam.sdk.transforms.join.CoGbkResult;
@@ -16,7 +15,7 @@ import java.io.Serializable;
 
 public class InnerJoinExample implements Serializable {
     public void usingInnerJoin(){
-        // count entries
+        // inner join selects records that have matching values in both tables
         Pipeline pipeline = Pipeline.create();
         PCollection<String> pUserOrderList = pipeline.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/user_order.csv"));
         PCollection<String> pUserNameList = pipeline.apply(TextIO.read().from("/Users/restynasimbwa/apacheBeam/data/user_name.csv"));
@@ -47,7 +46,7 @@ public class InnerJoinExample implements Serializable {
 
                 for(String order : userOrderTable){
                     for(String user :userNameTable){
-                        c.output(key+","+order+","+user);
+                        c.output(key+","+user+","+order);
                     }
                 }
             }

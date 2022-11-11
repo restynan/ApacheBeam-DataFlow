@@ -1,14 +1,7 @@
 package com.example.apacheBeamDemo;
 
-import com.example.apacheBeamDemo.service.CountExample;
-import com.example.apacheBeamDemo.service.DistinctExample;
-import com.example.apacheBeamDemo.service.groupByKey.GroupByKeyExample;
-import com.example.apacheBeamDemo.service.innerJoin.InnerJoinExample;
-import com.example.apacheBeamDemo.service.usingOptions.MyOptions;
-import org.apache.beam.sdk.Pipeline;
-import org.apache.beam.sdk.io.TextIO;
-import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.values.PCollection;
+import com.example.apacheBeamDemo.service.joins.InnerJoinExample;
+import com.example.apacheBeamDemo.service.joins.LeftJoinExample;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -86,10 +79,13 @@ public class ApacheBeamDemoApplication implements CommandLineRunner {
 		GroupByKeyExample groupByKeyExample = new GroupByKeyExample();
 		groupByKeyExample.getCustomersGroupedByKey();
      */
-
-
+		// inner join selects records that have matching values in both tables
 		InnerJoinExample innerJoinExample = new InnerJoinExample();
 		innerJoinExample.usingInnerJoin();
+
+		// Left join returns all records from the left table and the matched records from the right table
+		LeftJoinExample leftJoinExample = new LeftJoinExample();
+		leftJoinExample.usingLeftJoin();
 
 
 

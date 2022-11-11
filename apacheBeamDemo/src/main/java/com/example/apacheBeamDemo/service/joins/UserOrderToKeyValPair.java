@@ -1,4 +1,4 @@
-package com.example.apacheBeamDemo.service.innerJoin;
+package com.example.apacheBeamDemo.service.joins;
 
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.values.KV;
